@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حكايا — منشئ الروايات الذكي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== CURSOR ===== -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ===== NOISE OVERLAY ===== -->
+<div class="noise-overlay"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <span class="logo-ar">حكايا</span>
+    <span class="logo-dot">◈</span>
+  </div>
+  <div class="nav-links">
+    <a href="#generator" class="nav-link">المنشئ</a>
+    <a href="#library" class="nav-link">المكتبة</a>
+    <a href="#community" class="nav-link">المجتمع</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-ghost" id="loginBtn">دخول</button>
+    <button class="btn-primary" id="signupBtn">ابدأ مجاناً</button>
+  </div>
+  <button class="nav-toggle" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      مدعوم بالذكاء الاصطناعي
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line">اصنع</span>
+      <span class="title-line accent">روايتك</span>
+      <span class="title-line">بخيالك</span>
+    </h1>
+    <p class="hero-desc">
+      منصة ذكية تحوّل أفكارك إلى روايات مكتملة بأسلوبك الخاص —<br />
+      لا قوالب، لا حدود، فقط إبداع لا نهاية له.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-hero" onclick="scrollToGenerator()">
+        <span>ابدأ الإبداع</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn-outline-hero" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})">
+        استكشف الروايات
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" data-target="12400">0</span>
+        <span class="stat-label">رواية مُنشأة</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="3200">0</span>
+        <span class="stat-label">كاتب مبدع</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="18">0</span>
+        <span class="stat-label">نوع روائي</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="floating-card card-1">
+      <div class="card-genre">🗡️ أكشن</div>
+      <div class="card-title">في ظل الصحراء</div>
+      <div class="card-meta">٣ فصول · فصحى</div>
+    </div>
+    <div class="floating-card card-2">
+      <div class="card-genre">💜 رومانسية</div>
+      <div class="card-title">قلب بين النجوم</div>
+      <div class="card-meta">٧ فصول · عامية</div>
+    </div>
+    <div class="floating-card card-3">
+      <div class="card-genre">🌙 فانتازيا</div>
+      <div class="card-title">مملكة الأحلام</div>
+      <div class="card-meta">١٢ فصل · تفصيلي</div>
+    </div>
+    <div class="book-spine"></div>
+  </div>
+</section>
+
+<!-- ===== GENERATOR ===== -->
+<section class="generator" id="generator">
+  <div class="section-header">
+    <div class="section-tag">✦ منشئ الروايات</div>
+    <h2 class="section-title">خصّص روايتك<br /><span class="accent">من الألف إلى الياء</span></h2>
+  </div>
+
+  <div class="generator-container">
+    <!-- Step Indicator -->
+    <div class="steps-bar">
+      <div class="step active" data-step="1">
+        <div class="step-circle">١</div>
+        <span>النوع والأسلوب</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2">
+        <div class="step-circle">٢</div>
+        <span>الشخصيات والحبكة</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">
+        <div class="step-circle">٣</div>
+        <span>التفاصيل المتقدمة</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="4">
+        <div class="step-circle">✦</div>
+        <span>الإنشاء</span>
+      </div>
+    </div>
+
+    <div class="generator-form">
+      <!-- STEP 1 -->
+      <div class="form-step active" id="step1">
+        <div class="step-content">
+          <h3 class="step-heading">ما نوع روايتك؟</h3>
+
+          <div class="genres-grid">
+            <div class="genre-card" data-genre="action" onclick="toggleGenre(this)">
+              <span class="genre-icon">⚔️</span>
+              <span class="genre-name">أكشن ومغامرة</span>
+            </div>
+            <div class="genre-card" data-genre="romance" onclick="toggleGenre(this)">
+              <span class="genre-icon">💜</span>
+              <span class="genre-name">رومانسية</span>
+            </div>
+            <div class="genre-card" data-genre="mystery" onclick="toggleGenre(this)">
+              <span class="genre-icon">🔍</span>
+              <span class="genre-name">غموض وتشويق</span>
+            </div>
+            <div class="genre-card" data-genre="fantasy" onclick="toggleGenre(this)">
+              <span class="genre-icon">🌙</span>
+              <span class="genre-name">فانتازيا</span>
+            </div>
+            <div class="genre-card" data-genre="war" onclick="toggleGenre(this)">
+              <span class="genre-icon">🛡️</span>
+              <span class="genre-name">حرب وتاريخ</span>
+            </div>
+            <div class="genre-card" data-genre="emotional" onclick="toggleGenre(this)">
+              <span class="genre-icon">🌊</span>
+              <span class="genre-name">عاطفية اجتماعية</span>
+            </div>
+            <div class="genre-card" data-genre="horror" onclick="toggleGenre(this)">
+              <span class="genre-icon">👁️</span>
+              <span class="genre-name">رعب ونفسي</span>
+            </div>
+            <div class="genre-card" data-genre="scifi" onclick="toggleGenre(this)">
+              <span class="genre-icon">🚀</span>
+              <span class="genre-name">خيال علمي</span>
+            </div>
+            <div class="genre-card" data-genre="comedy" onclick="toggleGenre(this)">
+              <span class="genre-icon">😄</span>
+              <span class="genre-name">كوميدية</span>
+            </div>
+            <div class="genre-card" data-genre="philosophical" onclick="toggleGenre(this)">
+              <span class="genre-icon">🌿</span>
+              <span class="genre-name">فلسفية فكرية</span>
+            </div>
+            <div class="genre-card" data-genre="crime" onclick="toggleGenre(this)">
+              <span class="genre-icon">🗂️</span>
+              <span class="genre-name">جريمة وإثارة</span>
+            </div>
+            <div class="genre-card" data-genre="spiritual" onclick="toggleGenre(this)">
+              <span class="genre-icon">✨</span>
+              <span class="genre-name">روحانية دينية</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">أسلوب السرد</label>
+              <div class="style-selector">
+                <button class="style-btn active" data-style="fusha" onclick="selectStyle(this)">فصحى راقية</button>
+                <button class="style-btn" data-style="ammiya" onclick="selectStyle(this)">عامية محببة</button>
+                <button class="style-btn" data-style="mixed" onclick="selectStyle(this)">مزيج فصيح-عامي</button>
+                <button class="style-btn" data-style="brief" onclick="selectStyle(this)">مختصر ومكثف</button>
+                <button class="style-btn" data-style="detailed" onclick="selectStyle(this)">تفصيلي غني</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">مستوى التشويق</label>
+              <div class="slider-container">
+                <input type="range" class="custom-slider" id="thrill" min="1" max="10" value="5" oninput="updateSlider(this,'thrill-val')" />
+                <div class="slider-labels">
+                  <span>هادئ</span>
+                  <span id="thrill-val" class="slider-value">٥</span>
+                  <span>مشوّق جداً</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="step-nav">
+          <div></div>
+          <button class="btn-next" onclick="nextStep(2)">التالي <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="form-step" id="step2">
+        <div class="step-content">
+          <h3 class="step-heading">الشخصيات والحبكة</h3>
+
+          <div class="form-group">
+            <label class="form-label">عنوان الرواية <span class="optional">(اختياري)</span></label>
+            <input type="text" class="form-input" id="novelTitle" placeholder="اترك فارغاً لتوليده تلقائياً..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">شخصية البطل / البطلة الرئيسية</label>
+            <div class="character-builder">
+              <input type="text" class="form-input" id="heroName" placeholder="اسم البطل (اختياري)" />
+              <div class="char-traits">
+                <button class="trait-btn" onclick="toggleTrait(this)">شجاع</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">غامض</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">ذكي</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">رومانسي</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">متمرد</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">ضعيف في البداية</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">خبير محارب</button>
+                <button class="trait-btn" onclick="toggleTrait(this)">بريء</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">شخصيات ثانوية <span class="optional">(اختياري)</span></label>
+            <div class="secondary-chars" id="secondaryChars">
+              <div class="char-input-row">
+                <input type="text" class="form-input" placeholder="اسم الشخصية ودورها..." />
+                <button class="btn-add-char" onclick="addCharRow()">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">بداية الرواية <span class="optional">(اختياري)</span></label>
+            <textarea class="form-textarea" id="novelStart" rows="3" placeholder="صف كيف تبدأ الرواية، أو اتركه للذكاء الاصطناعي..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">نهاية الرواية <span class="optional">(اختياري)</span></label>
+            <div class="ending-options">
+              <button class="ending-btn active" data-ending="open" onclick="selectEnding(this)">نهاية مفتوحة</button>
+              <button class="ending-btn" data-ending="happy" onclick="selectEnding(this)">نهاية سعيدة</button>
+              <button class="ending-btn" data-ending="tragic" onclick="selectEnding(this)">نهاية مأساوية</button>
+              <button class="ending-btn" data-ending="surprise" onclick="selectEnding(this)">نهاية مفاجئة</button>
+              <button class="ending-btn" data-ending="ai" onclick="selectEnding(this)">اختر أنت يا ذكاء 🤖</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="step-nav">
+          <button class="btn-back" onclick="nextStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> السابق</button>
+          <button class="btn-next" onclick="nextStep(3)">التالي <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="form-step" id="step3">
+        <div class="step-content">
+          <h3 class="step-heading">التفاصيل المتقدمة</h3>
+
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label class="form-label">عدد الفصول</label>
+              <div class="number-input">
+                <button onclick="changeNum('chapCount',-1)">−</button>
+                <span id="chapCount" class="num-display">٣</span>
+                <button onclick="changeNum('chapCount',1)">+</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">طول كل فصل</label>
+              <select class="form-select" id="chapLength">
+                <option value="short">قصير (٣٠٠-٥٠٠ كلمة)</option>
+                <option value="medium" selected>متوسط (٦٠٠-١٠٠٠ كلمة)</option>
+                <option value="long">طويل (١٢٠٠-٢٠٠٠ كلمة)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">شخصية الراوي</label>
+            <div class="narrator-options">
+              <button class="narrator-btn active" data-narrator="third" onclick="selectNarrator(this)">
+                <span>👁️</span> الراوي العليم (هو/هي)
+              </button>
+              <button class="narrator-btn" data-narrator="first" onclick="selectNarrator(this)">
+                <span>🎭</span> الراوي الأول (أنا)
+              </button>
+              <button class="narrator-btn" data-narrator="second" onclick="selectNarrator(this)">
+                <span>🫵</span> الراوي الثاني (أنت)
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">إضافات خاصة <span class="optional">(اختياري)</span></label>
+            <div class="extras-grid">
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="subplot">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">حبكة فرعية</span>
+                  <span class="extra-desc">قصة موازية تثري السرد</span>
+                </div>
+              </div>
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="twist">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">منعطف مفاجئ</span>
+                  <span class="extra-desc">حدث غير متوقع يغير مسار الرواية</span>
+                </div>
+              </div>
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="flashback">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">فلاش باك</span>
+                  <span class="extra-desc">عودة إلى الماضي لكشف أسرار</span>
+                </div>
+              </div>
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="dialogue">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">حوارات غنية</span>
+                  <span class="extra-desc">تركيز على الحوار بين الشخصيات</span>
+                </div>
+              </div>
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="setting">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">وصف البيئة</span>
+                  <span class="extra-desc">تصوير تفصيلي للأماكن والجو</span>
+                </div>
+              </div>
+              <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="villain">
+                <div class="extra-check">✓</div>
+                <div class="extra-info">
+                  <span class="extra-name">شرير معقد</span>
+                  <span class="extra-desc">خصم له دوافعه ومنطقه الخاص</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">أي شيء إضافي تريد إضافته؟</label>
+            <textarea class="form-textarea" id="extraNotes" rows="3" placeholder="أي تفاصيل خاصة، مشهد معين تريده، رسالة تريد إيصالها..."></textarea>
+          </div>
+
+        </div>
+        <div class="step-nav">
+          <button class="btn-back" onclick="nextStep(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> السابق</button>
+          <button class="btn-next" onclick="nextStep(4)">التالي <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- STEP 4 - GENERATE -->
+      <div class="form-step" id="step4">
+        <div class="step-content">
+          <h3 class="step-heading">مراجعة وإنشاء</h3>
+          <div class="summary-card" id="summaryCard"></div>
+
+          <div class="api-key-section">
+            <div class="api-notice">
+              <span class="api-icon">🔑</span>
+              <div>
+                <strong>مفتاح Claude API</strong>
+                <p>أدخل مفتاحك لتوليد الروايات (يُخزّن محلياً فقط)</p>
+              </div>
+            </div>
+            <input type="password" class="form-input" id="apiKey" placeholder="sk-ant-..." />
+            <p class="api-hint">احصل على مفتاحك المجاني من <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></p>
+          </div>
+
+        </div>
+        <div class="step-nav">
+          <button class="btn-back" onclick="nextStep(3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> السابق</button>
+          <button class="btn-generate" id="generateBtn" onclick="generateNovel()">
+            <span class="generate-text">✦ أنشئ روايتي</span>
+            <div class="generate-loader" style="display:none">
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULT SECTION ===== -->
+<section class="result-section" id="resultSection" style="display:none">
+  <div class="result-container">
+    <div class="result-header">
+      <div class="result-badge">✦ روايتك جاهزة</div>
+      <h2 class="result-title" id="resultTitle">عنوان الرواية</h2>
+      <div class="result-meta" id="resultMeta"></div>
+    </div>
+
+    <div class="result-body">
+      <div class="chapters-sidebar" id="chaptersSidebar"></div>
+      <div class="novel-content" id="novelContent">
+        <div class="novel-text" id="novelText"></div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="action-btn" onclick="copyNovel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        نسخ الرواية
+      </button>
+      <button class="action-btn" onclick="downloadNovel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        تحميل PDF
+      </button>
+      <button class="action-btn" onclick="regenerateNovel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        أعد الإنشاء
+      </button>
+      <button class="action-btn primary" onclick="saveNovel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        حفظ في مكتبتي
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMUNITY ===== -->
+<section class="community" id="community">
+  <div class="section-header">
+    <div class="section-tag">✦ مجتمع القراء</div>
+    <h2 class="section-title">روايات من <span class="accent">المجتمع</span></h2>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterNovels(this,'all')">الكل</button>
+    <button class="filter-btn" onclick="filterNovels(this,'romance')">رومانسية 💜</button>
+    <button class="filter-btn" onclick="filterNovels(this,'fantasy')">فانتازيا 🌙</button>
+    <button class="filter-btn" onclick="filterNovels(this,'mystery')">غموض 🔍</button>
+    <button class="filter-btn" onclick="filterNovels(this,'action')">أكشن ⚔️</button>
+  </div>
+
+  <div class="novels-grid" id="novelsGrid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ===== MODAL: Novel Reader ===== -->
+<div class="modal" id="readerModal">
+  <div class="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL: Auth ===== -->
+<div class="modal" id="authModal">
+  <div class="modal-overlay" onclick="closeAuthModal()"></div>
+  <div class="modal-content auth-modal">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab" onclick="switchAuth('login')">تسجيل الدخول</button>
+      <button class="auth-tab" id="signupTab" onclick="switchAuth('signup')">حساب جديد</button>
+    </div>
+    <div class="auth-body" id="authBody">
+      <button class="btn-google" onclick="loginWithGoogle()">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        متابعة مع Google
+      </button>
+      <div class="auth-divider"><span>أو</span></div>
+      <div id="loginForm">
+        <input type="email" class="form-input" placeholder="البريد الإلكتروني" />
+        <input type="password" class="form-input" placeholder="كلمة المرور" />
+        <button class="btn-primary full-width">دخول</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="logo-ar">حكايا</span>
+      <span class="logo-dot">◈</span>
+      <p>منصة منشئ الروايات الذكي — أبدع بلا حدود</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">من نحن</a>
+      <a href="#">الخصوصية</a>
+      <a href="#">الشروط</a>
+      <a href="#">تواصل معنا</a>
+    </div>
+    <div class="footer-copy">© ٢٠٢٥ حكايا · جميع الحقوق محفوظة</div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
